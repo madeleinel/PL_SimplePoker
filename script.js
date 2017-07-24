@@ -26,7 +26,7 @@ function deck() {
 
 // Create a card object which accepts the name, suit and value of each card
 function card(suit, name, value) { // Note that the arguments of this function need to be input in the same order as
-                                   // the values in the cards.push method (to ensure that the card name gets assigned to "name", etc)
+                                   // the values in the cards.push() method (to ensure that the card name gets assigned to "name", etc)
   this.value = value;
   this.name = name;
   this.suit = suit;
