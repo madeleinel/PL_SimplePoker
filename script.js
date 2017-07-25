@@ -51,12 +51,13 @@ function deal() {
   // Shuffle the deck of cards returned from the deck() function, using the shuffle() function
   shuffledDeck = shuffle(deck());
 
-  // Deal the cards
+  // Deal the cards using nested for loops, to loop through each player and each card that needs to be dealt
   var p,
       c,
       i,
       totalPlayers = 2, // get number from HTML input
-      totalCards = 5; // get number from HTML input
+      totalCards = 5, // get number from HTML input
+      game = []; // Create an object to contain all players' hands
 
   for (p = 0; p < totalPlayers; p++) {
     var hand = []; // Create an empty hand for the player
@@ -66,10 +67,41 @@ function deal() {
       // Delete the dealt card from the deck
       shuffledDeck.shift();
     }
-    console.log(hand);
+    // Add each hand to the game array
+    game.push(hand);
   }
+  // Make the game array (containing all players' hands) available outside of the deal() function
+  return game;
+}
+
+// Score the cards of each player's hand, and return the value
+function score() {
+
+  var p,
+      c,
+      i,
+      hands = deal(), // To ensure that the deal() function does not assign new values to the game array while executing the score() function >> Assign this array to a variable
+      scores = [], // Create an empty array to contain each player's final score
+      numOfPlayers = deal().length, // Calculate how many players' hands are within the game array
+      numOfCards = deal()[0].length; // Calculate how many cards each player has
+                                     // (as each player has the same amount of cards, it is sufficient to calculate this for one of the players;
+                                     // as there will always be at least one player, the first player is used to calculate this number)
+
+  // Loop through each player's entire hand to calculate their final score
+  for (p = 0; p < numOfPlayers; p++) {
+    var score = 0; // Reset the score before calculating each player's score
+
+    for (c = 0; c < numOfCards; c++) {
+      score = score + hands[p][c].value; // Add up the total score of the cards in each player's hand
+    }
+    // Add each final score to the scores array
+    scores.push(score);
+  }
+  // Make the scores array (containing all players' final scores) available outside of the score() function
+  return scores;
 }
 
 // Make the functions run on window.onLoad() <<
 // Add all elements through JS >> if JS is disabled; display an explanatory text using HTML
-deal();
+// deal();
+score();
