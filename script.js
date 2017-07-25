@@ -104,12 +104,20 @@ function declareWinner() {
       scores = score(),
       numOfScores = scores.length, // Calculate how many final scores there are to compare
       greatestValue = scores[0], // Create a variable to contain the current greatest value while comparing the scores, and assign the first score of the array to a variable
-      draw = false; // Check whether there is a draw, rather than just one winner
+      draw = false, // Check whether there is a draw, rather than just one winner
+      playerAnnouncement, // Create a variable to contain the "announcement" about each player's score
+      winnerAnnouncement, // Create a variable to contain the announcement about the winner(s) of the game
+      outputSection, // Create a variable to append the announcements to
+      outputField = document.getElementById("output");
 
   // Loop through all of the final scores and compare them
   for (i = 0; i < numOfScores; i++) {
+
     // Announce the final score of each player
-    console.log("Player " + (i+1) + " has a score of " + scores[i]);
+    outputSection = document.createElement("p"); // Create a paragraph element to display the player announcement within
+    playerAnnouncement = document.createTextNode("Player " + (i+1) + " has a score of " + scores[i]); // Update this variable to include the current player's number and score
+    outputSection.appendChild(playerAnnouncement); // Append the announcement to the paragraph
+    outputField.appendChild(outputSection); // Append the paragraph to the output section within the page
 
     // Compare each score of the array to the value of the variable:
     if (scores[i] === greatestValue) {
@@ -125,17 +133,17 @@ function declareWinner() {
 
   // Once the loop has finished; find the winner
   if (draw === false) { // If there is no draw; find and declare the one winner
-
     var winner; // Create a variable to contain the number of the winning player
 
     winner = scores.indexOf(greatestValue); // Find the index of the winning value within the scores array, to find the number of the winning player
     winner += 1; // As zero indexing; use n+1 to find the number of the player
 
-    console.log("Player " + winner + " wins the game!");
+    outputSection = document.createElement("p"); // Create a paragraph element to display the player announcement within
+    winnerAnnouncement = document.createTextNode("Player " + winner + " wins the game!"); // Assign the winner announcement to this variable
+    outputSection.appendChild(winnerAnnouncement); // Append the announcement to the paragraph
+    outputField.appendChild(outputSection); // Append the paragraph to the output section within the page
 
-  }
-  else if (draw === true) { // If there is a draw; find and declare both winners
-
+  } else if (draw === true) { // If there is a draw; find and declare both winners
     var winner1, // Create variables to contain the numbers of the winning players
         winner2;
 
@@ -144,12 +152,22 @@ function declareWinner() {
     winner1 += 1; // As zero indexing; use n+1 to find the number of the players
     winner2 += 1; // As zero indexing; use n+1 to find the number of the players
 
-    console.log("It's a draw! Players " + winner1 + " and " + winner2 + " win the game!");
+    outputSection = document.createElement("p"); // Create a paragraph element to display the player announcement within
+    winnerAnnouncement = document.createTextNode("It's a draw! Players " + winner1 + " and " + winner2 + " win the game!"); // Assign the winner announcement to this variable
+    outputSection.appendChild(winnerAnnouncement); // Append the announcement to the paragraph
+    outputField.appendChild(outputSection); // Append the paragraph to the output section within the page
   }
 }
 
-// Make the functions run on window.onLoad() <<
+// Once the window has completed loading, let the user start the game by clicking the "Play the game" button
+window.onload = function() {
+  var startBtn = document.getElementById("startGameBtn"),
+      outputField = document.getElementById("output");
+
+  startBtn.addEventListener("click", (e) => {
+    outputField.innerHTML = ""; // Remove the previous game results from the page before starting a new game
+    declareWinner(); // Run the game
+  });
+}
+
 // Add all elements through JS >> if JS is disabled; display an explanatory text using HTML
-// deal();
-// score();
-declareWinner();
