@@ -40,15 +40,15 @@ function deal() {
 
   // Shuffle the cards using the Fisher-Yates shuffle algorithm to ensure a non-biased shuffle (from https://www.frankmitchell.org/2015/01/fisher-yates/)
   function shuffle (deck) {
-    var j = 0,
-        k = 0,
-        temp = null;
+    var currentIndex,
+        randomIndex,
+        tempValue;
 
-    for (j = deck.length - 1; j > 0; j -= 1) {
-      k = Math.floor(Math.random() * (j + 1));
-      temp = deck[j];
-      deck[j] = deck[k];
-      deck[k] = temp;
+    for (currentIndex = deck.length - 1; currentIndex > 0; currentIndex -= 1) {
+      randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+      tempValue = deck[currentIndex];
+      deck[currentIndex] = deck[randomIndex];
+      deck[randomIndex] = tempValue;
     }
     return deck;
   }
