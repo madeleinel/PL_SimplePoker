@@ -1,0 +1,41 @@
+body {
+  width: 100vw;
+  font-family: Verdana, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  padding: 1.5em 0;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.4em;
+  margin: 1.2em 6vw;
+}
+
+button {
+  border: none;
+  border-radius: 0.25em;
+  color: #fff;
+  background-color: #3D5B80;
+  min-width: 4em;
+  padding: 0.5em;
+  margin: 2em 0.5em 0.5em 0.5em;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+#input {
+  background: #c5dcf8;
+  margin: 0 15vw;
+  padding-bottom: 0.8em;
+}
+
+#output {
+  margin: 5vh 15vw;
+}
