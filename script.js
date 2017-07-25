@@ -102,19 +102,22 @@ function score() {
 function declareWinner() {
   var i,
       scores = score(),
-      numOfScores = scores.length,
-      winner;
+      numOfScores = scores.length, // Calculate how many final scores there are to compare
+      greatestValue, // Create a variable to contain the current greatest value while comparing the scores
+      winner; // Create a variable to contain the number of the winning player
 
   // Loop through all of the final scores and compare them
   for (i = 0; i < numOfScores; i++) {
-    console.log(scores[i]);
-    winner = scores[0]; // Assign the first score of the array to a variable
-    if (scores[i] >= winner) { // Compare each score of the array to the value of the variable
-      winner = scores[i]; // If the current score is greater than the variable value >> update the variable with the greater value
+    console.log("Player " + (i+1) + " has a score of " + scores[i]);
+    greatestValue = scores[0]; // Assign the first score of the array to a variable
+    if (scores[i] >= greatestValue) { // Compare each score of the array to the value of the variable
+      greatestValue = scores[i]; // If the current score is greater than the variable value >> update the variable with the greater value
     }
   }
   // Once the loop has finished; find the winner
-  console.log(winner + " is greater");
+  winner = scores.indexOf(greatestValue); // Find the index of the winning value within the scores array, to find the number of the winning player
+  winner += 1; // As zero indexing; use n+1 to find the number of the player
+  console.log("Player " + winner + " wins the game!");
 }
 
 // Make the functions run on window.onLoad() <<
