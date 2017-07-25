@@ -54,7 +54,7 @@ function deal() {
   // Deal the cards using nested for loops, to loop through each player and each card that needs to be dealt
   var p,
       c,
-      totalPlayers = 2, // get number from HTML input
+      totalPlayers = 4, // get number from HTML input
       totalCards = 5, // get number from HTML input
       game = []; // Create an object to contain all players' hands
 
@@ -103,21 +103,49 @@ function declareWinner() {
   var i,
       scores = score(),
       numOfScores = scores.length, // Calculate how many final scores there are to compare
-      greatestValue, // Create a variable to contain the current greatest value while comparing the scores
-      winner; // Create a variable to contain the number of the winning player
+      greatestValue = scores[0], // Create a variable to contain the current greatest value while comparing the scores, and assign the first score of the array to a variable
+      draw = false; // Check whether there is a draw, rather than just one winner
 
   // Loop through all of the final scores and compare them
   for (i = 0; i < numOfScores; i++) {
+    // Announce the final score of each player
     console.log("Player " + (i+1) + " has a score of " + scores[i]);
-    greatestValue = scores[0]; // Assign the first score of the array to a variable
-    if (scores[i] >= greatestValue) { // Compare each score of the array to the value of the variable
+
+    // Compare each score of the array to the value of the variable:
+    if (scores[i] === greatestValue) {
+      draw = true; // If the current value is the same as the variable value; set draw to be true
+                   // Don't need to update the greatestValue variable, as the values are the same
+    } if (scores[i] > greatestValue) {
       greatestValue = scores[i]; // If the current score is greater than the variable value >> update the variable with the greater value
+      draw = false; // Reset draw to false, in case a previous loop has set it to true
+    } if (scores[i] < greatestValue) {
+      draw = false; // Include this to avoid "false positives", ie it being declared a draw when there is only one winner
     }
   }
+
   // Once the loop has finished; find the winner
-  winner = scores.indexOf(greatestValue); // Find the index of the winning value within the scores array, to find the number of the winning player
-  winner += 1; // As zero indexing; use n+1 to find the number of the player
-  console.log("Player " + winner + " wins the game!");
+  if (draw === false) { // If there is no draw; find and declare the one winner
+
+    var winner; // Create a variable to contain the number of the winning player
+
+    winner = scores.indexOf(greatestValue); // Find the index of the winning value within the scores array, to find the number of the winning player
+    winner += 1; // As zero indexing; use n+1 to find the number of the player
+
+    console.log("Player " + winner + " wins the game!");
+
+  }
+  else if (draw === true) { // If there is a draw; find and declare both winners
+
+    var winner1, // Create variables to contain the numbers of the winning players
+        winner2;
+
+    winner1 = scores.indexOf(greatestValue); // Look for the index of the first winner
+    winner2 = scores.indexOf(greatestValue, winner1+1) // Start looking for the index of the second winner after the index of the first winner
+    winner1 += 1; // As zero indexing; use n+1 to find the number of the players
+    winner2 += 1; // As zero indexing; use n+1 to find the number of the players
+
+    console.log("It's a draw! Players " + winner1 + " and " + winner2 + " win the game!");
+  }
 }
 
 // Make the functions run on window.onLoad() <<
