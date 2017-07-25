@@ -51,12 +51,13 @@ function deal() {
   // Shuffle the deck of cards returned from the deck() function, using the shuffle() function
   shuffledDeck = shuffle(deck());
 
-  // Deal the cards
+  // Deal the cards using nested for loops, to loop through each player and each card that needs to be dealt
   var p,
       c,
       i,
       totalPlayers = 2, // get number from HTML input
-      totalCards = 5; // get number from HTML input
+      totalCards = 5, // get number from HTML input
+      game = []; // Create an object to contain all players' hands
 
   for (p = 0; p < totalPlayers; p++) {
     var hand = []; // Create an empty hand for the player
@@ -66,8 +67,11 @@ function deal() {
       // Delete the dealt card from the deck
       shuffledDeck.shift();
     }
-    console.log(hand);
+    // Add each hand to the game array
+    game.push(hand);
   }
+  // Make the game array (containing all players' hands) available outside of the deal() function
+  return game;
 }
 
 // Make the functions run on window.onLoad() <<
