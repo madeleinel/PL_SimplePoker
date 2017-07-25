@@ -81,6 +81,7 @@ function score() {
       c,
       i,
       hands = deal(), // To ensure that the deal() function does not assign new values to the game array while executing the score() function >> Assign this array to a variable
+      scores = [], // Create an empty array to contain each player's final score
       numOfPlayers = deal().length, // Calculate how many players' hands are within the game array
       numOfCards = deal()[0].length; // Calculate how many cards each player has
                                      // (as each player has the same amount of cards, it is sufficient to calculate this for one of the players;
@@ -93,7 +94,11 @@ function score() {
     for (c = 0; c < numOfCards; c++) {
       score = score + hands[p][c].value; // Add up the total score of the cards in each player's hand
     }
+    // Add each final score to the scores array
+    scores.push(score);
   }
+  // Make the scores array (containing all players' final scores) available outside of the score() function
+  return scores;
 }
 
 // Make the functions run on window.onLoad() <<
