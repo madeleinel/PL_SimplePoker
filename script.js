@@ -54,7 +54,6 @@ function deal() {
   // Deal the cards using nested for loops, to loop through each player and each card that needs to be dealt
   var p,
       c,
-      i,
       totalPlayers = 2, // get number from HTML input
       totalCards = 5, // get number from HTML input
       game = []; // Create an object to contain all players' hands
@@ -79,7 +78,6 @@ function score() {
 
   var p,
       c,
-      i,
       hands = deal(), // To ensure that the deal() function does not assign new values to the game array while executing the score() function >> Assign this array to a variable
       scores = [], // Create an empty array to contain each player's final score
       numOfPlayers = deal().length, // Calculate how many players' hands are within the game array
@@ -101,7 +99,26 @@ function score() {
   return scores;
 }
 
+function declareWinner() {
+  var i,
+      scores = score(),
+      numOfScores = scores.length,
+      winner;
+
+  // Loop through all of the final scores and compare them
+  for (i = 0; i < numOfScores; i++) {
+    console.log(scores[i]);
+    winner = scores[0]; // Assign the first score of the array to a variable
+    if (scores[i] >= winner) { // Compare each score of the array to the value of the variable
+      winner = scores[i]; // If the current score is greater than the variable value >> update the variable with the greater value
+    }
+  }
+  // Once the loop has finished; find the winner
+  console.log(winner + " is greater");
+}
+
 // Make the functions run on window.onLoad() <<
 // Add all elements through JS >> if JS is disabled; display an explanatory text using HTML
 // deal();
-score();
+// score();
+declareWinner();
