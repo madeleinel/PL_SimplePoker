@@ -74,6 +74,29 @@ function deal() {
   return game;
 }
 
+// Score the cards of each player's hand, and return the value
+function score() {
+
+  var p,
+      c,
+      i,
+      hands = deal(), // To ensure that the deal() function does not assign new values to the game array while executing the score() function >> Assign this array to a variable
+      numOfPlayers = deal().length, // Calculate how many players' hands are within the game array
+      numOfCards = deal()[0].length; // Calculate how many cards each player has
+                                     // (as each player has the same amount of cards, it is sufficient to calculate this for one of the players;
+                                     // as there will always be at least one player, the first player is used to calculate this number)
+
+  // Loop through each player's entire hand to calculate their final score
+  for (p = 0; p < numOfPlayers; p++) {
+    var score = 0; // Reset the score before calculating each player's score
+
+    for (c = 0; c < numOfCards; c++) {
+      score = score + hands[p][c].value; // Add up the total score of the cards in each player's hand
+    }
+  }
+}
+
 // Make the functions run on window.onLoad() <<
 // Add all elements through JS >> if JS is disabled; display an explanatory text using HTML
-deal();
+// deal();
+score();
