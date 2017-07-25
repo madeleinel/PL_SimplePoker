@@ -10,7 +10,7 @@ var deck = function () {
       totalRanks = this.ranks.length, // Calculate the number of suits and names to loop through outside of the for loop
       totalSuits = this.suits.length; // (to avoid having to calculate it each time it runs through the loop)
 
-  // Loop through the suits and names options, to create one card of each variation and add it to the cards array
+  // Loop through the suit and rank options, to create one card of each variation and add it to the cards array
   for (s = 0; s < totalSuits; s++) {
     for (n = 0; n < totalRanks; n++) {
       // Push each card to the "cards" array
@@ -30,31 +30,33 @@ function card(suit, rank, value) { // Note that the arguments of this function n
   this.suit = suit;
 }
 
+// Use the Fisher-Yates shuffle algorithm to shuffle the cards, to ensure a non-biased shuffle (from https://www.frankmitchell.org/2015/01/fisher-yates/)
+function shuffle (deck) {
+  var currentIndex,
+      randomIndex,
+      tempValue;
+
+  for (currentIndex = deck.length - 1; currentIndex > 0; currentIndex -= 1) {
+    randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+    tempValue = deck[currentIndex];
+    deck[currentIndex] = deck[randomIndex];
+    deck[randomIndex] = tempValue;
+  }
+  return deck;
+}
+
 // Assign x number of cards to y number of players (get numbers from HTML input elements)
 function deal() {
+
+  // Shuffle the deck of cards returned from the deck() function, using the shuffle() function
+  shuffledDeck = shuffle(deck());
+
+  // Deal the cards
   var p,
       c,
       i,
       totalPlayers = 2, // get number from HTML input
       totalCards = 5; // get number from HTML input
-
-  // Shuffle the cards using the Fisher-Yates shuffle algorithm to ensure a non-biased shuffle (from https://www.frankmitchell.org/2015/01/fisher-yates/)
-  function shuffle (deck) {
-    var currentIndex,
-        randomIndex,
-        tempValue;
-
-    for (currentIndex = deck.length - 1; currentIndex > 0; currentIndex -= 1) {
-      randomIndex = Math.floor(Math.random() * (currentIndex + 1));
-      tempValue = deck[currentIndex];
-      deck[currentIndex] = deck[randomIndex];
-      deck[randomIndex] = tempValue;
-    }
-    return deck;
-  }
-
-  shuffledDeck = shuffle(deck());
-  console.log(shuffledDeck);
 
   for (p = 0; p < totalPlayers; p++) {
     var hand = []; // Create an empty hand for the player
