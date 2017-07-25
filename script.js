@@ -54,7 +54,6 @@ function deal() {
   // Deal the cards using nested for loops, to loop through each player and each card that needs to be dealt
   var p,
       c,
-      i,
       totalPlayers = 2, // get number from HTML input
       totalCards = 5, // get number from HTML input
       game = []; // Create an object to contain all players' hands
@@ -79,7 +78,6 @@ function score() {
 
   var p,
       c,
-      i,
       hands = deal(), // To ensure that the deal() function does not assign new values to the game array while executing the score() function >> Assign this array to a variable
       scores = [], // Create an empty array to contain each player's final score
       numOfPlayers = deal().length, // Calculate how many players' hands are within the game array
@@ -101,7 +99,29 @@ function score() {
   return scores;
 }
 
+function declareWinner() {
+  var i,
+      scores = score(),
+      numOfScores = scores.length, // Calculate how many final scores there are to compare
+      greatestValue, // Create a variable to contain the current greatest value while comparing the scores
+      winner; // Create a variable to contain the number of the winning player
+
+  // Loop through all of the final scores and compare them
+  for (i = 0; i < numOfScores; i++) {
+    console.log("Player " + (i+1) + " has a score of " + scores[i]);
+    greatestValue = scores[0]; // Assign the first score of the array to a variable
+    if (scores[i] >= greatestValue) { // Compare each score of the array to the value of the variable
+      greatestValue = scores[i]; // If the current score is greater than the variable value >> update the variable with the greater value
+    }
+  }
+  // Once the loop has finished; find the winner
+  winner = scores.indexOf(greatestValue); // Find the index of the winning value within the scores array, to find the number of the winning player
+  winner += 1; // As zero indexing; use n+1 to find the number of the player
+  console.log("Player " + winner + " wins the game!");
+}
+
 // Make the functions run on window.onLoad() <<
 // Add all elements through JS >> if JS is disabled; display an explanatory text using HTML
 // deal();
-score();
+// score();
+declareWinner();
